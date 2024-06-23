@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # the user will be able to provide the necessary options to create the scatter plot from the data provided
 # by the database.
 def get_scatter_plot(data, years, data_type, country):
-    plt.figure(figsize=(40, 20))
+    plt.figure(figsize=(20, 20))
     plt.plot(years, data, marker='o')
     plt.xlabel('Year')
     plt.ylabel(data_type)
@@ -25,6 +25,8 @@ def get_scatter_plot(data, years, data_type, country):
 # The 'get_pie_chart' method returns an image of the pie chart data according to the country and data type.
 def get_pie_chart(country, year, data, data_type):
     fig, ax = plt.subplots()
+    if isinstance(data, float):
+        data = int(data)
     ax.pie(data, labels=country)
 
     pie_path = f"{data_type}_{year}_pie.png"

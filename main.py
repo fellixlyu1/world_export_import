@@ -92,7 +92,7 @@ class PieWindow(QWidget):
         scroll = QScrollArea()
         scroll.setWidget(pie_group_box)
         scroll.setWidgetResizable(True)
-        scroll.setFixedHeight(400)
+        scroll.setFixedHeight(1000)
 
         layout = QVBoxLayout(self)
         layout.addWidget(scroll)
@@ -169,7 +169,7 @@ class ScatterWindow(QWidget):
         scroll = QScrollArea()
         scroll.setWidget(scatter_group_box)
         scroll.setWidgetResizable(True)
-        scroll.setFixedHeight(400)
+        scroll.setFixedHeight(1000)
 
         layout = QVBoxLayout(self)
         layout.addWidget(scroll)
@@ -214,9 +214,9 @@ class MainWindow(QWidget):
     def __init__(self, cursor):
         super().__init__()
         self.scatter_window = ScatterWindow(cursor)
-        self.scatter_window.setGeometry(1000, 600, 600, 400)
+        self.scatter_window.setGeometry(1000, 800, 800, 600)
         self.pie_window = PieWindow(cursor)
-        self.pie_window.setGeometry(1000, 600, 600, 400)
+        self.pie_window.setGeometry(1000, 800, 800, 600)
         main_group_box = QGroupBox('Global Commerce Analysis')
         main_form = QFormLayout()
 
@@ -228,16 +228,12 @@ class MainWindow(QWidget):
         pie_button.clicked.connect(self.pie_window.show)
         main_form.addRow(pie_button)
 
-        self.results_display = QTextEdit()
-        self.results_display.setReadOnly(True)
-        main_form.addRow(self.results_display)
-
         main_group_box.setLayout(main_form)
 
         scroll = QScrollArea()
         scroll.setWidget(main_group_box)
         scroll.setWidgetResizable(True)
-        scroll.setFixedHeight(400)
+        scroll.setFixedHeight(100)
 
         layout = QVBoxLayout(self)
         layout.addWidget(scroll)
@@ -246,6 +242,6 @@ class MainWindow(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_window = MainWindow(cursor)
-    main_window.setGeometry(1000, 600, 600, 400)
+    main_window.setGeometry(200, 300, 300, 100)
     main_window.show()
     sys.exit(app.exec_())
