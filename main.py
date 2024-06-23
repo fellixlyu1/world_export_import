@@ -10,11 +10,15 @@ from PyQt5.QtWidgets import (
 
 import visualizations
 
-# Connect to the database
+# The connection variable will connect the app to the SQLite database, "global_imp_exp.db"
+# The cursor variable establishes that connection and allows the user to
+# interact with the database while using the Graphical User Interface (GUI).
 connection = sqlite3.connect("global_imp_exp.db")
 cursor = connection.cursor()
 
-# Data options and SQL statements mapping
+# Data options and SQL statements mapping - Since the SQLite statements require the name of the
+# columns, I needed to create a separate list of the columns with the right spaces in between to
+# provide an easier UX in the GUI. This list's index will input the aligned SQLite statements
 data_options = ["Export", "Import", "Export Product Share", "Import Product Share",
                 "Revealed Comparative Advantage", "World Growth", "Country Growth", "AHS Simple Average",
                 "AHS Weighted Average", "AHS Total Tariff Lines", "AHS Dutiable Tariff Lines Share",
@@ -25,6 +29,7 @@ data_options = ["Export", "Import", "Export Product Share", "Import Product Shar
                 "MFN Specific Tariff Lines Share", "MFN AVE Tariff Lines Share", "MFN Max Rate", "MFN Min Rate",
                 "MFN Specific Duty Imports", "MFN Dutiable Imports", "MFN Duty Free Imports"]
 
+# A sql_statement list to function as the SQL statements in the methods below.
 sql_statement = ["Export", "Import", "ExportProductShare", "ImportProductShare",
                  "RevealedComparativeAdvantage", "WorldGrowth", "CountryGrowth", "AHSSimpleAverage",
                  "AHSWeightedAverage", "AHSTotalTariffLines", "AHSDutiableTariffLinesShare",
@@ -36,17 +41,25 @@ sql_statement = ["Export", "Import", "ExportProductShare", "ImportProductShare",
                  "MFNSpecificDutyImports", "MFNDutiableImports", "MFNDutyFreeImports"]
 
 
+# The 'list_of_countries()' method allows the user to return all of the countries in the
+# 'PartnerName' column in the 'global_business_data' table.
 def list_of_countries():
-    country_list = []
     countries = cursor.execute("SELECT DISTINCT PartnerName FROM global_business_data").fetchall()
     country_list = [tup[0] for tup in countries]
     return country_list
 
 
+# The 'list_of_years()' method provides a list of years spanning from 1988 to 2021.
+# This list will return a list of strings, instead of integers, since the strings will be required
+# for the other methods below. These strings will act as SQL statements to filter the data
+# in the object that will output an image of a pie chart.
 def list_of_years():
     return [str(year) for year in range(1988, 2022)]
 
 
+# The 'PieWindow' class uses the QWidget from the 'QtWidgets' library. Essentially, this class will
+# create the GUI window to allow the user to create and save a pie chart image according to the year
+# and the type of data you wish to visualize.
 class PieWindow(QWidget):
     def __init__(self, cursor):
         super().__init__()
@@ -84,6 +97,11 @@ class PieWindow(QWidget):
         layout = QVBoxLayout(self)
         layout.addWidget(scroll)
 
+    # The 'fetch_pie_data()' method uses the input from the 'PieWindow' class or in this case, the GUI window
+    # chosen from the MainWindow class below. The user will use the scrollbars in the window to create
+    # the SQL statements returning the data for the country and the type of data or 'column' in the database.
+    # Using the input and the output of data, the result and the choices as parameters for
+    # the 'get_pie_chart' method from the 'visualizations.py' file.
     def fetch_pie_data(self):
         year = self.year_combo.currentText()
         column = self.column_combo.currentText()
@@ -116,6 +134,9 @@ class PieWindow(QWidget):
         self.results_display.append(f"See the pie chart below:\n{image_path}")
 
 
+# The 'ScatterWindow' class performs the same functions as the 'PieWindow', however, this window returns and
+# saves an image of a scatter plot graph. It filters the type of data and the country in the database
+# and returns the graph, with the type of data as the y axis and the span of years as the x axis.
 class ScatterWindow(QWidget):
     def __init__(self, cursor):
         super().__init__()
@@ -153,6 +174,10 @@ class ScatterWindow(QWidget):
         layout = QVBoxLayout(self)
         layout.addWidget(scroll)
 
+    # The 'fetch_scatter_data' method in the class has the same function as the 'fetch_pie_data' method,
+    # however, it filters the type of data according to the country that the user chooses as input.
+    # Since this is a scatter plot we're returning, it was better to segment the data as a timeline
+    # according to the country.
     def fetch_scatter_data(self):
         country = self.country_combo.currentText()
         column = self.column_combo.currentText()
