@@ -30,12 +30,12 @@ def get_pie_chart(country, year, data, data_type):
         data = int(data)
 
     # Create the pie chart with the provided colors
-    wedges, autotexts = ax.pie(data, startangle=90)
+    wedges, auto_texts = ax.pie(data, startangle=90)
 
     # Optional: Improve the appearance
-    for autotext in autotexts:
-        autotext.set_fontsize(8)
-        autotext.set_color('white')
+    for auto_text in auto_texts:
+        auto_text.set_fontsize(8)
+        auto_text.set_color('white')
 
     ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
