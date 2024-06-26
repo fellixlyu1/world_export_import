@@ -1,13 +1,11 @@
-<p>This GUI application allows the user to create and save png files of either a scatter plot graph or a pie chart, depending on the csv file provided by the user. In this project,
-the GUI app uses a Kaggle dataset that contains a "a comprehensive collection of data related to international trade and trade policies". If the user needs this tool for their
-data analysis, the user will need to access the 'csv_to_sql' folder.</p>
+<h1>Global Commerce Analysis</h1>
 
-<p>Within the folder, the user can transfer the csv file that they want to create into a table and a database. If the user needs to join other tables into the database, they will 
-have to create separate statements.</p>
+<p>This GUI application allows the user to create and save png files of either a scatter plot graph or a pie chart, depending on the csv file provided by the user. In this project, the GUI app uses a Kaggle dataset that contains a "a comprehensive collection of data related to international trade and trade policies". If the user needs this tool for their data analysis, the user will need to access the 'csv_to_sql' folder.</p>
 
-<h1><strong>RUN THE PROGRAM</strong></h1>
-<p>Once the user runs the program, a GUI window will pop up and show two choices: 'Scatter Plot' or 'Pie Chart'. Depending on which button the user picks, the application will open
-the selected window.</p>
+<p>Within the folder, the user can transfer the csv file that they want to create into a table and a database. If the user needs to join other tables into the database, they will have to create separate statements.</p>
+
+<h2><strong>RUN THE PROGRAM</strong></h2>
+<p>Once the user runs the program, a GUI window will pop up and show two choices: 'Scatter Plot' or 'Pie Chart'. Depending on which button the user picks, the application will open the selected window.</p>
 
 ![Screenshot 2024-06-23 9 19 51 AM](https://github.com/fellixlyu1/world_export_import/assets/116593040/e9725df1-ccdb-4e3e-916c-d9fb3f8a0356)
 
